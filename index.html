@@ -1,0 +1,1983 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AURUM AUTO — Премиальный автосалон в Москве</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --black-2: #111111;
+            --black-3: #1a1a1a;
+            --black-4: #222222;
+            --yellow: #D4A017;
+            --yellow-bright: #F5C842;
+            --yellow-dark: #B8860B;
+            --yellow-glow: rgba(212, 160, 23, 0.5);
+            --yellow-glow-soft: rgba(212, 160, 23, 0.2);
+            --white: #ffffff;
+            --gray: #999999;
+            --gray-light: #cccccc;
+            --gray-dark: #666666;
+            --font-heading: 'Playfair Display', 'Montserrat', serif;
+            --font-body: 'Inter', 'Montserrat', sans-serif;
+            --transition-fast: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.45s cubic-bezier(0.65, 0, 0.35, 1);
+            --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+            --shadow-yellow: 0 4px 20px rgba(212, 160, 23, 0.3);
+            --radius-sm: 8px;
+            --radius-md: 16px;
+            --radius-lg: 24px;
+            --radius-xl: 32px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--yellow) var(--black-3);
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--black-3);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--yellow);
+            border-radius: 3px;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: var(--black);
+            color: var(--white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============ PRELOADER ============ */
+        #preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 99999;
+            background: var(--black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+        #preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .preloader-logo {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            animation: preloaderPulse 1.2s ease-in-out infinite;
+        }
+        .preloader-shield {
+            width: 50px;
+            height: 58px;
+            position: relative;
+        }
+        .preloader-shield svg {
+            width: 100%;
+            height: 100%;
+        }
+        .preloader-shield .shield-path {
+            fill: none;
+            stroke: var(--yellow);
+            stroke-width: 2.5;
+            stroke-dasharray: 200;
+            stroke-dashoffset: 200;
+            animation: drawShield 1.5s ease forwards infinite;
+        }
+        .preloader-text {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            color: var(--yellow);
+        }
+        @keyframes preloaderPulse {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.06);
+            }
+        }
+        @keyframes drawShield {
+            0% {
+                stroke-dashoffset: 200;
+            }
+            50% {
+                stroke-dashoffset: 0;
+            }
+            100% {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        /* ============ HEADER ============ */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(212, 160, 23, 0.15);
+            transition: all var(--transition-smooth);
+            padding: 0 40px;
+        }
+        .header.scrolled {
+            background: rgba(10, 10, 10, 0.95);
+            border-bottom-color: rgba(212, 160, 23, 0.35);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.7);
+        }
+        .header-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        .logo-icon {
+            width: 44px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+        .logo-icon svg .shield-fill {
+            fill: var(--yellow);
+        }
+        .logo-icon svg .shield-letter {
+            fill: var(--black);
+            font-family: var(--font-heading);
+            font-weight: 800;
+            font-size: 22px;
+        }
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1;
+        }
+        .logo-main {
+            font-family: var(--font-heading);
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            color: var(--yellow);
+            transition: color var(--transition-fast);
+        }
+        .logo-sub {
+            font-size: 0.6rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--gray);
+            font-weight: 400;
+        }
+        .logo:hover .logo-main {
+            color: var(--yellow-bright);
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .nav-link {
+            position: relative;
+            padding: 10px 18px;
+            color: var(--gray-light);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+            transition: color var(--transition-fast);
+            cursor: pointer;
+            border-radius: 30px;
+            white-space: nowrap;
+        }
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--yellow);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%) scaleX(0);
+            width: 20px;
+            height: 2px;
+            background: var(--yellow);
+            border-radius: 1px;
+            transition: transform var(--transition-bounce);
+        }
+        .nav-link:hover::after,
+        .nav-link.active::after {
+            transform: translateX(-50%) scaleX(1);
+        }
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--yellow);
+            color: var(--black) !important;
+            font-weight: 700;
+            border-radius: 30px;
+            letter-spacing: 0.04em;
+            transition: all var(--transition-smooth);
+            box-shadow: var(--shadow-yellow);
+            margin-left: 12px;
+            cursor: pointer;
+            border: none;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+        .nav-cta:hover {
+            background: var(--yellow-bright);
+            box-shadow: 0 6px 28px rgba(212, 160, 23, 0.5);
+            transform: translateY(-2px);
+            color: var(--black) !important;
+        }
+        .nav-cta::after {
+            display: none;
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+            z-index: 1001;
+            padding: 8px;
+            background: none;
+            border: none;
+        }
+        .hamburger span {
+            width: 28px;
+            height: 2.5px;
+            background: var(--yellow);
+            border-radius: 2px;
+            transition: all var(--transition-smooth);
+            display: block;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* ============ SECTIONS ============ */
+        .section {
+            min-height: 100vh;
+            padding: 120px 40px 80px;
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .section-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        /* ============ HERO ============ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 0 40px;
+            background: radial-gradient(ellipse at 30% 50%, rgba(212, 160, 23, 0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 30%, rgba(212, 160, 23, 0.05) 0%, transparent 50%),
+                var(--black);
+        }
+        .hero-bg-car {
+            position: absolute;
+            right: -5%;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55%;
+            max-width: 850px;
+            opacity: 0.7;
+            pointer-events: none;
+            animation: heroCarFloat 6s ease-in-out infinite;
+            z-index: 0;
+        }
+        .hero-bg-car img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 0 80px rgba(212, 160, 23, 0.25));
+        }
+        @keyframes heroCarFloat {
+            0%,
+            100% {
+                transform: translateY(-50%) translateX(0);
+            }
+            25% {
+                transform: translateY(-52%) translateX(-8px);
+            }
+            50% {
+                transform: translateY(-49%) translateX(4px);
+            }
+            75% {
+                transform: translateY(-51%) translateX(-3px);
+            }
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 650px;
+        }
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border: 1px solid rgba(212, 160, 23, 0.4);
+            border-radius: 30px;
+            font-size: 0.8rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease forwards;
+            background: rgba(212, 160, 23, 0.06);
+        }
+        .hero-title {
+            font-family: var(--font-heading);
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: 0.02em;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s 0.15s ease forwards;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .hero-title .accent {
+            color: var(--yellow);
+            display: block;
+            font-style: italic;
+        }
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--gray);
+            max-width: 480px;
+            margin-bottom: 36px;
+            animation: fadeInUp 0.8s 0.3s ease forwards;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s 0.45s ease forwards;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.03em;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .btn-primary {
+            background: var(--yellow);
+            color: var(--black);
+            box-shadow: var(--shadow-yellow);
+            font-weight: 700;
+        }
+        .btn-primary:hover {
+            background: var(--yellow-bright);
+            box-shadow: 0 8px 35px rgba(212, 160, 23, 0.55);
+            transform: translateY(-3px);
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        .btn-outline:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+            background: rgba(212, 160, 23, 0.06);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(212, 160, 23, 0.2);
+        }
+        .btn i {
+            font-size: 0.85rem;
+            transition: transform var(--transition-fast);
+        }
+        .btn:hover i {
+            transform: translateX(4px);
+        }
+        .btn-primary:hover i {
+            transform: translateX(4px);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 50px;
+            animation: fadeInUp 0.8s 0.6s ease forwards;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        .hero-stat {
+            text-align: center;
+        }
+        .hero-stat-value {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--yellow);
+            line-height: 1;
+        }
+        .hero-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray);
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-top: 6px;
+        }
+
+        /* ============ CATALOG SECTION ============ */
+        .catalog-section {
+            background: var(--black-2);
+            min-height: auto;
+            padding: 100px 40px;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .section-tag {
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: 0.02em;
+            line-height: 1.15;
+        }
+        .section-line {
+            width: 60px;
+            height: 3px;
+            background: var(--yellow);
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        .filter-btn {
+            padding: 10px 22px;
+            border-radius: 30px;
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            background: transparent;
+            color: var(--gray-light);
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 0.88rem;
+            letter-spacing: 0.03em;
+            transition: all var(--transition-smooth);
+            font-family: var(--font-body);
+        }
+        .filter-btn:hover {
+            border-color: var(--yellow);
+            color: var(--yellow);
+        }
+        .filter-btn.active {
+            background: var(--yellow);
+            border-color: var(--yellow);
+            color: var(--black);
+            font-weight: 700;
+            box-shadow: var(--shadow-yellow);
+        }
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 28px;
+        }
+        .car-card {
+            background: var(--black-3);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            group: true;
+        }
+        .car-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 160, 23, 0.35);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(212, 160, 23, 0.2);
+        }
+        .car-card-image {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform var(--transition-smooth);
+        }
+        .car-card:hover .car-card-image {
+            transform: scale(1.06);
+        }
+        .car-card-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: var(--yellow);
+            color: var(--black);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.78rem;
+            letter-spacing: 0.04em;
+            z-index: 2;
+        }
+        .car-card-body {
+            padding: 20px 24px 24px;
+        }
+        .car-card-brand {
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--yellow);
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        .car-card-name {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+        .car-card-specs {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.8rem;
+            color: var(--gray);
+            margin-bottom: 14px;
+        }
+        .car-card-specs span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .car-card-specs i {
+            color: var(--yellow);
+            font-size: 0.7rem;
+        }
+        .car-card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 14px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .car-card-price {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--yellow);
+            letter-spacing: 0.02em;
+        }
+        .car-card-btn {
+            padding: 8px 18px;
+            background: transparent;
+            border: 1.5px solid var(--yellow);
+            color: var(--yellow);
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.82rem;
+            letter-spacing: 0.03em;
+            transition: all var(--transition-fast);
+            font-family: var(--font-body);
+        }
+        .car-card-btn:hover {
+            background: var(--yellow);
+            color: var(--black);
+            box-shadow: var(--shadow-yellow);
+        }
+
+        /* ============ ABOUT SECTION ============ */
+        .about-section {
+            background: var(--black);
+            min-height: auto;
+            padding: 100px 40px;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .about-image-wrapper {
+            position: relative;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            aspect-ratio: 4/3;
+        }
+        .about-image-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: var(--radius-xl);
+            transition: transform var(--transition-smooth);
+        }
+        .about-image-wrapper:hover img {
+            transform: scale(1.04);
+        }
+        .about-image-border {
+            position: absolute;
+            inset: -3px;
+            border-radius: var(--radius-xl);
+            border: 2px solid rgba(212, 160, 23, 0.3);
+            pointer-events: none;
+            animation: borderGlow 3s ease-in-out infinite;
+        }
+        @keyframes borderGlow {
+            0%,
+            100% {
+                border-color: rgba(212, 160, 23, 0.3);
+                box-shadow: 0 0 20px rgba(212, 160, 23, 0.1);
+            }
+            50% {
+                border-color: rgba(212, 160, 23, 0.7);
+                box-shadow: 0 0 40px rgba(212, 160, 23, 0.25);
+            }
+        }
+        .about-content .section-tag {
+            text-align: left;
+        }
+        .about-content .section-title {
+            margin-bottom: 20px;
+        }
+        .about-text {
+            color: var(--gray);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .about-features {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .about-feat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 16px;
+            background: var(--black-3);
+            border-radius: var(--radius-sm);
+            font-weight: 500;
+            font-size: 0.9rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all var(--transition-fast);
+        }
+        .about-feat:hover {
+            border-color: rgba(212, 160, 23, 0.3);
+            background: var(--black-4);
+        }
+        .about-feat i {
+            color: var(--yellow);
+            font-size: 1.1rem;
+        }
+
+        /* ============ SERVICES ============ */
+        .services-section {
+            background: var(--black-2);
+            min-height: auto;
+            padding: 100px 40px;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .service-card {
+            background: var(--black-3);
+            border-radius: var(--radius-lg);
+            padding: 32px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all var(--transition-smooth);
+            text-align: center;
+            cursor: pointer;
+        }
+        .service-card:hover {
+            transform: translateY(-6px);
+            border-color: rgba(212, 160, 23, 0.3);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+        }
+        .service-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 20px;
+            background: rgba(212, 160, 23, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: var(--yellow);
+            transition: all var(--transition-smooth);
+        }
+        .service-card:hover .service-icon {
+            background: var(--yellow);
+            color: var(--black);
+            box-shadow: var(--shadow-yellow);
+            transform: scale(1.1);
+        }
+        .service-card h3 {
+            font-family: var(--font-heading);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            letter-spacing: 0.03em;
+        }
+        .service-card p {
+            font-size: 0.88rem;
+            color: var(--gray);
+            line-height: 1.6;
+        }
+
+        /* ============ CONTACT ============ */
+        .contact-section {
+            background: var(--black);
+            min-height: auto;
+            padding: 100px 40px;
+        }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: start;
+        }
+        .contact-info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 28px;
+            padding: 20px;
+            background: var(--black-3);
+            border-radius: var(--radius-md);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all var(--transition-fast);
+        }
+        .contact-info-item:hover {
+            border-color: rgba(212, 160, 23, 0.3);
+        }
+        .contact-info-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(212, 160, 23, 0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--yellow);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .contact-info-text h4 {
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: 0.03em;
+        }
+        .contact-info-text p {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        .contact-form {
+            background: var(--black-3);
+            padding: 36px;
+            border-radius: var(--radius-lg);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+        .contact-form h3 {
+            font-family: var(--font-heading);
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 16px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 6px;
+            font-weight: 500;
+        }
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 18px;
+            background: var(--black-4);
+            border: 1.5px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius-sm);
+            color: var(--white);
+            font-family: var(--font-body);
+            font-size: 0.95rem;
+            transition: all var(--transition-fast);
+            outline: none;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--yellow);
+            box-shadow: 0 0 0 4px rgba(212, 160, 23, 0.08);
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        .form-group select {
+            appearance: none;
+            cursor: pointer;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23D4A017' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+        }
+
+        /* ============ MODAL ============ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9000;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(8px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all var(--transition-smooth);
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background: var(--black-3);
+            border-radius: var(--radius-xl);
+            max-width: 700px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            border: 1px solid rgba(212, 160, 23, 0.25);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(20px) scale(0.96);
+            transition: all var(--transition-smooth);
+            position: relative;
+        }
+        .modal-overlay.active .modal {
+            transform: translateY(0) scale(1);
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: var(--black-4);
+            border: none;
+            border-radius: 50%;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 1.1rem;
+            z-index: 10;
+            transition: all var(--transition-fast);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-close:hover {
+            background: var(--yellow);
+            color: var(--black);
+        }
+        .modal-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+        }
+        .modal-body {
+            padding: 28px 32px 32px;
+        }
+        .modal-body h2 {
+            font-family: var(--font-heading);
+            font-size: 1.8rem;
+            margin-bottom: 6px;
+        }
+        .modal-body .modal-brand {
+            color: var(--yellow);
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+        .modal-specs {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 16px 0;
+            padding: 16px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .modal-spec {
+            text-align: center;
+        }
+        .modal-spec-value {
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: var(--yellow);
+        }
+        .modal-spec-label {
+            font-size: 0.7rem;
+            color: var(--gray);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+        .modal-price {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--yellow);
+            margin: 16px 0;
+            font-family: var(--font-heading);
+        }
+
+        /* ============ FOOTER ============ */
+        .footer {
+            background: var(--black-2);
+            padding: 60px 40px 30px;
+            border-top: 1px solid rgba(212, 160, 23, 0.2);
+        }
+        .footer-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-col h4 {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            letter-spacing: 0.03em;
+        }
+        .footer-col p,
+        .footer-col a {
+            color: var(--gray);
+            font-size: 0.88rem;
+            line-height: 2;
+            text-decoration: none;
+            display: block;
+            transition: color var(--transition-fast);
+        }
+        .footer-col a:hover {
+            color: var(--yellow);
+        }
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--gray-dark);
+            font-size: 0.8rem;
+            letter-spacing: 0.04em;
+        }
+
+        /* ============ BACK TO TOP ============ */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: var(--yellow);
+            color: var(--black);
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            z-index: 800;
+            box-shadow: var(--shadow-yellow);
+            transition: all var(--transition-smooth);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: var(--yellow-bright);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(212, 160, 23, 0.6);
+        }
+
+        /* ============ TOAST ============ */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--yellow);
+            color: var(--black);
+            padding: 14px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            z-index: 9999;
+            letter-spacing: 0.03em;
+            box-shadow: var(--shadow-yellow);
+            transition: transform var(--transition-bounce);
+            pointer-events: none;
+        }
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ============ ANIMATIONS ON SCROLL ============ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============ PARTICLES ============ */
+        .particles-container {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            background: var(--yellow);
+            border-radius: 50%;
+            animation: particleFloat linear infinite;
+            opacity: 0;
+        }
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(0) translateX(0) scale(0);
+            }
+            10% {
+                opacity: 0.7;
+            }
+            90% {
+                opacity: 0.2;
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-100vh) translateX(40px) scale(1.5);
+            }
+        }
+
+        /* ============ RESPONSIVE ============ */
+        @media (max-width: 1024px) {
+            .hero-bg-car {
+                width: 65%;
+                right: -15%;
+                opacity: 0.45;
+            }
+            .about-grid,
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .catalog-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 20px;
+            }
+            .header-inner {
+                height: 64px;
+            }
+            .nav {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100vh;
+                background: rgba(10, 10, 10, 0.97);
+                backdrop-filter: blur(30px);
+                flex-direction: column;
+                padding: 100px 30px 40px;
+                gap: 6px;
+                transition: right var(--transition-smooth);
+                border-left: 1px solid rgba(212, 160, 23, 0.2);
+                z-index: 999;
+            }
+            .nav.active {
+                right: 0;
+            }
+            .nav-link {
+                font-size: 1rem;
+                padding: 12px 16px;
+                width: 100%;
+                text-align: left;
+            }
+            .nav-cta {
+                margin-left: 0;
+                margin-top: 12px;
+                width: 100%;
+                text-align: center;
+                justify-content: center;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero {
+                padding: 0 20px;
+                text-align: center;
+            }
+            .hero-content {
+                max-width: 100%;
+            }
+            .hero-bg-car {
+                width: 90%;
+                right: -20%;
+                opacity: 0.3;
+                top: 55%;
+            }
+            .hero-stats {
+                justify-content: center;
+                gap: 24px;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .hero-subtitle {
+                margin: 0 auto 28px;
+            }
+            .section {
+                padding: 80px 20px;
+            }
+            .catalog-section,
+            .about-section,
+            .services-section,
+            .contact-section {
+                padding: 70px 20px;
+            }
+            .catalog-grid {
+                grid-template-columns: 1fr;
+                max-width: 450px;
+                margin: 0 auto;
+            }
+            .services-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+            .modal {
+                max-width: 95%;
+            }
+            .modal-image {
+                height: 200px;
+            }
+            .about-features {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 480px) {
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero-stats {
+                flex-wrap: wrap;
+                gap: 16px;
+            }
+            .hero-stat-value {
+                font-size: 1.6rem;
+            }
+            .filter-bar {
+                gap: 8px;
+            }
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 0.78rem;
+            }
+            .btn {
+                padding: 12px 22px;
+                font-size: 0.85rem;
+            }
+            .logo-main {
+                font-size: 1.2rem;
+            }
+            .logo-icon {
+                width: 34px;
+                height: 40px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PRELOADER -->
+    <div id="preloader">
+        <div class="preloader-logo">
+            <div class="preloader-shield">
+                <svg viewBox="0 0 50 58" xmlns="http://www.w3.org/2000/svg">
+                    <path class="shield-path" d="M25 2L4 12v18c0 14 9 24 21 28 12-4 21-14 21-28V12L25 2z" fill="none" stroke="#D4A017" stroke-width="2.5"/>
+                    <text x="25" y="38" text-anchor="middle" fill="#D4A017" font-family="'Playfair Display', serif" font-weight="800" font-size="20">A</text>
+                </svg>
+            </div>
+            <span class="preloader-text">AURUM</span>
+        </div>
+    </div>
+
+    <!-- PARTICLES -->
+    <div class="particles-container" id="particles"></div>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="header-inner">
+            <a class="logo" href="#hero" onclick="closeNav()">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 44 52" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#F5C842"/>
+                                <stop offset="100%" style="stop-color:#B8860B"/>
+                            </linearGradient>
+                        </defs>
+                        <path d="M22 1L3 10v16c0 12.5 8 21.5 19 25 11-3.5 19-12.5 19-25V10L22 1z" fill="url(#shieldGrad)" stroke="#0a0a0a" stroke-width="1"/>
+                        <text x="22" y="33" text-anchor="middle" fill="#0a0a0a" font-family="'Playfair Display', serif" font-weight="900" font-size="18">A</text>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="logo-main">AURUM</span>
+                    <span class="logo-sub">Auto Moscow</span>
+                </div>
+            </a>
+            <nav class="nav" id="nav">
+                <a class="nav-link active" href="#hero" onclick="closeNav()">Главная</a>
+                <a class="nav-link" href="#catalog" onclick="closeNav()">Каталог</a>
+                <a class="nav-link" href="#about" onclick="closeNav()">О нас</a>
+                <a class="nav-link" href="#services" onclick="closeNav()">Услуги</a>
+                <a class="nav-link" href="#contact" onclick="closeNav()">Контакты</a>
+                <a class="nav-cta" href="#contact" onclick="closeNav()">Запись на тест-драйв</a>
+            </nav>
+            <button class="hamburger" id="hamburger" aria-label="Меню" onclick="toggleNav()">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="hero">
+        <div class="hero-bg-car">
+            <img src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=1000&q=85"
+            alt="Luxury Car"
+            onerror="this.src='https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=1000&q=85'">
+        </div>
+        <div class="hero-content">
+            <span class="hero-badge">✦ Премиальный автосалон в Москве</span>
+            <h1 class="hero-title">
+                Искусство<br><span class="accent">движения</span>
+            </h1>
+            <p class="hero-subtitle">
+                Эксклюзивные автомобили премиум-класса с персональным подходом. Откройте для себя мир роскоши и скорости с AURUM AUTO.
+            </p>
+            <div class="hero-buttons">
+                <a href="#catalog" class="btn btn-primary">
+                    Смотреть каталог <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="#contact" class="btn btn-outline">
+                    <i class="fas fa-calendar-alt"></i> Записаться на тест-драйв
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="350">0</div>
+                    <div class="hero-stat-label">Авто в наличии</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="18">0</div>
+                    <div class="hero-stat-label">Лет на рынке</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-value" data-count="12000">0</div>
+                    <div class="hero-stat-label">Довольных клиентов</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CATALOG SECTION -->
+    <section class="catalog-section" id="catalog">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <p class="section-tag">Каталог автомобилей</p>
+                <h2 class="section-title">Найдите свой идеальный<br>автомобиль</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="filter-bar reveal">
+                <button class="filter-btn active" data-filter="all">Все модели</button>
+                <button class="filter-btn" data-filter="sedan">Седаны</button>
+                <button class="filter-btn" data-filter="suv">Внедорожники</button>
+                <button class="filter-btn" data-filter="sport">Спорткары</button>
+                <button class="filter-btn" data-filter="electric">Электро</button>
+            </div>
+            <div class="catalog-grid" id="catalogGrid">
+                <!-- Cars populated by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section" id="about">
+        <div class="section-inner">
+            <div class="about-grid">
+                <div class="about-image-wrapper reveal">
+                    <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=85"
+                    alt="AURUM AUTO Showroom"
+                    onerror="this.src='https://images.unsplash.com/photo-1563720223185-11003d516935?w=800&q=85'">
+                    <div class="about-image-border"></div>
+                </div>
+                <div class="about-content reveal">
+                    <p class="section-tag">О компании</p>
+                    <h2 class="section-title">AURUM AUTO —<br>ваш проводник в мир премиум-автомобилей</h2>
+                    <p class="about-text">
+                        С 2006 года мы помогаем нашим клиентам находить автомобили, которые становятся не просто средством передвижения, а отражением их статуса и индивидуальности. Наш салон в центре Москвы предлагает только лучшие модели от ведущих мировых брендов.
+                    </p>
+                    <div class="about-features">
+                        <div class="about-feat"><i class="fas fa-shield-halved"></i> Полная гарантия</div>
+                        <div class="about-feat"><i class="fas fa-wrench"></i> Сервис премиум-класса</div>
+                        <div class="about-feat"><i class="fas fa-file-contract"></i> Прозрачные сделки</div>
+                        <div class="about-feat"><i class="fas fa-truck-fast"></i> Доставка по РФ</div>
+                    </div>
+                    <a href="#contact" class="btn btn-primary">Связаться с нами <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section class="services-section" id="services">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <p class="section-tag">Наши услуги</p>
+                <h2 class="section-title">Больше чем просто<br>автосалон</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="services-grid">
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-car"></i></div>
+                    <h3>Тест-драйв</h3>
+                    <p>Индивидуальный тест-драйв любого автомобиля в удобное для вас время на специально подготовленном маршруте.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Trade-In</h3>
+                    <p>Выгодный обмен вашего автомобиля на новый с максимальной рыночной оценкой и минимальными затратами времени.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-credit-card"></i></div>
+                    <h3>Финансирование</h3>
+                    <p>Индивидуальные условия кредитования и лизинга от ведущих банков-партнеров с одобрением за 1 час.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-tools"></i></div>
+                    <h3>Сервисный центр</h3>
+                    <p>Полный спектр услуг по обслуживанию и ремонту автомобилей премиум-класса с использованием оригинальных запчастей.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-paint-brush"></i></div>
+                    <h3>Детейлинг</h3>
+                    <p>Профессиональная детейлинг-студия: керамика, полировка, защитные покрытия, химчистка премиум-уровня.</p>
+                </div>
+                <div class="service-card reveal">
+                    <div class="service-icon"><i class="fas fa-globe"></i></div>
+                    <h3>Импорт под заказ</h3>
+                    <p>Привезем любой автомобиль из Европы, США или Азии под ключ с полным таможенным оформлением.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section class="contact-section" id="contact">
+        <div class="section-inner">
+            <div class="section-header reveal">
+                <p class="section-tag">Свяжитесь с нами</p>
+                <h2 class="section-title">Запишитесь на тест-драйв<br>или получите консультацию</h2>
+                <div class="section-line"></div>
+            </div>
+            <div class="contact-grid">
+                <div class="reveal">
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Адрес салона</h4>
+                            <p>Москва, Кутузовский проспект, 48<br>БЦ «Премьер», 1-й этаж</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="fas fa-phone"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Телефон</h4>
+                            <p>+7 (495) 777-88-99<br>+7 (800) 555-33-22</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="fas fa-envelope"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Email</h4>
+                            <p>sales@aurumauto.ru<br>info@aurumauto.ru</p>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="contact-info-icon"><i class="fas fa-clock"></i></div>
+                        <div class="contact-info-text">
+                            <h4>Часы работы</h4>
+                            <p>Пн–Сб: 9:00 – 21:00<br>Вс: 10:00 – 19:00</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-form reveal" id="contactForm">
+                    <h3>Оставьте заявку</h3>
+                    <form id="testDriveForm" onsubmit="handleFormSubmit(event)">
+                        <div class="form-group">
+                            <label>Ваше имя</label>
+                            <input type="text" placeholder="Александр Иванов" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Телефон</label>
+                            <input type="tel" placeholder="+7 (999) 123-45-67" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Интересующая модель</label>
+                            <select required>
+                                <option value="">Выберите модель...</option>
+                                <option>Mercedes-Benz S-Class</option>
+                                <option>BMW M8 Competition</option>
+                                <option>Porsche 911 Turbo S</option>
+                                <option>Range Rover Sport</option>
+                                <option>Bentley Continental GT</option>
+                                <option>Rolls-Royce Ghost</option>
+                                <option>Tesla Model S Plaid</option>
+                                <option>Lamborghini Urus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Комментарий</label>
+                            <textarea placeholder="Опишите ваши пожелания..." rows="3"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+                            Отправить заявку <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <h4 style="color:var(--yellow);font-family:var(--font-heading);font-size:1.3rem;">AURUM AUTO</h4>
+                <p>Премиальный автосалон в Москве. Эксклюзивные автомобили, безупречный сервис и персональный подход к каждому клиенту с 2006 года.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Каталог</h4>
+                <a href="#catalog" onclick="filterCatalog('sedan')">Седаны</a>
+                <a href="#catalog" onclick="filterCatalog('suv')">Внедорожники</a>
+                <a href="#catalog" onclick="filterCatalog('sport')">Спорткары</a>
+                <a href="#catalog" onclick="filterCatalog('electric')">Электромобили</a>
+            </div>
+            <div class="footer-col">
+                <h4>Услуги</h4>
+                <a href="#services">Тест-драйв</a>
+                <a href="#services">Trade-In</a>
+                <a href="#services">Кредитование</a>
+                <a href="#services">Сервис</a>
+            </div>
+            <div class="footer-col">
+                <h4>Контакты</h4>
+                <a href="tel:+74957778899">+7 (495) 777-88-99</a>
+                <a href="mailto:sales@aurumauto.ru">sales@aurumauto.ru</a>
+                <a href="#">Москва, Кутузовский пр-т, 48</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 AURUM AUTO Moscow. Все права защищены. | Сделано с <span style="color:var(--yellow);">✦</span> для ценителей скорости и стиля.
+        </div>
+    </footer>
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+        <div class="modal" id="modal" onclick="event.stopPropagation()">
+            <button class="modal-close" onclick="closeModalDirect()"><i class="fas fa-times"></i></button>
+            <img class="modal-image" id="modalImage" src="" alt="">
+            <div class="modal-body">
+                <p class="modal-brand" id="modalBrand"></p>
+                <h2 id="modalName"></h2>
+                <div class="modal-specs" id="modalSpecs"></div>
+                <div class="modal-price" id="modalPrice"></div>
+                <p style="color:var(--gray);margin-bottom:20px;" id="modalDesc"></p>
+                <a href="#contact" class="btn btn-primary" onclick="closeModalDirect()">
+                    Записаться на тест-драйв <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- BACK TO TOP -->
+    <button class="back-to-top" id="backToTop" onclick="scrollToTop()" aria-label="Наверх">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // ============ DATA ============
+        const carsData = [
+            { id: 1, brand: 'Mercedes-Benz', name: 'S-Class Long', category: 'sedan', price: '22 500 000 ₽',
+                year: 2025, engine: '4.0L V8', power: '503 л.с.', acceleration: '4.2 сек',
+                image: 'images/mercedes-benz-s-class-long.jpg',
+                fallback: 'images/mercedes-benz-s-class-long.jpg',
+                desc: 'Флагманский седан с непревзойденным комфортом. Идеальное сочетание передовых технологий и ручной работы интерьера.' },
+            { id: 2, brand: 'BMW', name: 'M8 Competition', category: 'sport', price: '18 900 000 ₽', year: 2025,
+                engine: '4.4L V8 Twin-Turbo', power: '625 л.с.', acceleration: '3.1 сек',
+                image: 'images/bmw-m8-competition.jpg',
+                fallback: 'images/bmw-m8-competition.jpg',
+                desc: 'Гран-туризмо нового поколения. Мощность, стиль и управляемость в одном флаконе.' },
+            { id: 3, brand: 'Porsche', name: '911 Turbo S', category: 'sport', price: '25 300 000 ₽', year: 2025,
+                engine: '3.8L Flat-6 Turbo', power: '650 л.с.', acceleration: '2.6 сек',
+                image: 'images/porsche-911-turbo-s.jpg',
+                fallback: 'images/porsche-911-turbo-s.jpg',
+                desc: 'Легендарный спорткар с культовым дизайном. Разгон до 100 км/ч за 2.6 секунды — чистая магия инженерии.' },
+            { id: 4, brand: 'Range Rover', name: 'Sport SV', category: 'suv', price: '19 800 000 ₽', year: 2025,
+                engine: '4.4L V8 MHEV', power: '635 л.с.', acceleration: '3.6 сек',
+                image: 'images/range-rover-sport-sv.jpg',
+                fallback: 'images/range-rover-sport-sv.jpg',
+                desc: 'Премиальный внедорожник с характером суперкара. Роскошь и проходимость без компромиссов.' },
+            { id: 5, brand: 'Bentley', name: 'Continental GT', category: 'sedan', price: '32 000 000 ₽', year: 2025,
+                engine: '6.0L W12', power: '659 л.с.', acceleration: '3.5 сек',
+                image: 'images/bentley-continental-gt.jpg',
+                fallback: 'images/bentley-continental-gt.jpg',
+                desc: 'Британская роскошь в каждой детали. Ручная сборка, натуральная кожа и мощнейший W12.' },
+            { id: 6, brand: 'Rolls-Royce', name: 'Ghost', category: 'sedan', price: '45 000 000 ₽', year: 2025,
+                engine: '6.75L V12', power: '571 л.с.', acceleration: '4.6 сек',
+                image: 'images/rolls-royce-ghost.jpg',
+                fallback: 'images/rolls-royce-ghost.jpg',
+                desc: 'Вершина автомобильной роскоши. Бесшумный салон, звездное небо и материалы высочайшего качества.' },
+            { id: 7, brand: 'Tesla', name: 'Model S Plaid', category: 'electric', price: '14 200 000 ₽', year: 2025,
+                engine: 'Электрический', power: '1020 л.с.', acceleration: '1.99 сек',
+                image: 'images/tesla-model-s-plaid.jpg',
+                fallback: 'images/tesla-model-s-plaid.jpg',
+                desc: 'Самый быстрый серийный электромобиль в мире. Разгон до 100 км/ч менее чем за 2 секунды.' },
+            { id: 8, brand: 'Lamborghini', name: 'Urus S', category: 'suv', price: '28 500 000 ₽', year: 2025,
+                engine: '4.0L V8 Twin-Turbo', power: '666 л.с.', acceleration: '3.3 сек',
+                image: 'images/lamborghini-urus-s.jpg',
+                fallback: 'images/lamborghini-urus-s.jpg',
+                desc: 'Супервнедорожник с ДНК Lamborghini. Агрессивный дизайн и невероятная динамика.' },
+            { id: 9, brand: 'Audi', name: 'RS e-tron GT', category: 'electric', price: '16 800 000 ₽', year: 2025,
+                engine: 'Электрический', power: '646 л.с.', acceleration: '3.3 сек',
+                image: 'images/audi-rs-e-tron-gt.jpg',
+                fallback: 'images/audi-rs-e-tron-gt.jpg',
+                desc: 'Электрический гран-туризмо с потрясающим дизайном. Тишина, мощь и нулевой выхлоп.' },
+            { id: 10, brand: 'Mercedes-Benz', name: 'G-Class AMG', category: 'suv', price: '26 000 000 ₽', year: 2025,
+                engine: '4.0L V8', power: '585 л.с.', acceleration: '4.5 сек',
+                image: 'images/mercedes-benz-g-class-amg.jpg',
+                fallback: 'images/mercedes-benz-g-class-amg.jpg',
+                desc: 'Культовый внедорожник с брутальным характером. Непревзойденная харизма и легендарная проходимость.' },
+            { id: 11, brand: 'Porsche', name: 'Cayenne Turbo GT', category: 'suv', price: '22 100 000 ₽', year: 2025,
+                engine: '4.0L V8 Twin-Turbo', power: '659 л.с.', acceleration: '3.2 сек',
+                image: 'images/porsche-cayenne-turbo-gt.jpg',
+                fallback: 'images/porsche-cayenne-turbo-gt.jpg',
+                desc: 'Самый быстрый SUV на Нюрбургринге. Спортивная душа Porsche в практичном кузове.' },
+            { id: 12, brand: 'BMW', name: 'i7 M70', category: 'electric', price: '17 500 000 ₽', year: 2025,
+                engine: 'Электрический', power: '660 л.с.', acceleration: '3.5 сек',
+                image: 'images/bmw-i7-m70.jpg',
+                fallback: 'images/bmw-i7-m70.jpg',
+                desc: 'Электрический флагман с кинозалом на заднем ряду. Технологии будущего уже сегодня.' },
+        ];
+
+        // ============ DOM ELEMENTS ============
+        const preloader = document.getElementById('preloader');
+        const header = document.getElementById('header');
+        const hamburger = document.getElementById('hamburger');
+        const nav = document.getElementById('nav');
+        const backToTop = document.getElementById('backToTop');
+        const catalogGrid = document.getElementById('catalogGrid');
+        const modalOverlay = document.getElementById('modalOverlay');
+        const toast = document.getElementById('toast');
+        const particlesContainer = document.getElementById('particles');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        // ============ PRELOADER ============
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                preloader.classList.add('hidden');
+            }, 1200);
+        });
+
+        // ============ PARTICLES ============
+        function createParticles() {
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                const size = Math.random() * 4 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.top = Math.random() * 100 + '%';
+                particle.style.animationDuration = Math.random() * 15 + 10 + 's';
+                particle.style.animationDelay = Math.random() * 12 + 's';
+                particlesContainer.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        // ============ RENDER CATALOG ============
+        function renderCatalog(filter = 'all') {
+            catalogGrid.innerHTML = '';
+            const filtered = filter === 'all' ? carsData : carsData.filter(c => c.category === filter);
+            filtered.forEach((car, index) => {
+                const card = document.createElement('div');
+                card.classList.add('car-card', 'reveal');
+                card.style.transitionDelay = index * 0.06 + 's';
+                card.innerHTML = `
+                    <div style="position:relative;overflow:hidden;">
+                        <img class="car-card-image" src="${car.image}" alt="${car.brand} ${car.name}" loading="lazy"
+                             onerror="this.src='${car.fallback}'">
+                        ${car.category === 'electric' ? '<span class="car-card-badge">ELECTRIC</span>' : ''}
+                        ${car.category === 'sport' ? '<span class="car-card-badge">SPORT</span>' : ''}
+                    </div>
+                    <div class="car-card-body">
+                        <p class="car-card-brand">${car.brand}</p>
+                        <h3 class="car-card-name">${car.name}</h3>
+                        <div class="car-card-specs">
+                            <span><i class="fas fa-calendar"></i> ${car.year}</span>
+                            <span><i class="fas fa-bolt"></i> ${car.power}</span>
+                            <span><i class="fas fa-tachometer-alt"></i> ${car.acceleration}</span>
+                        </div>
+                        <div class="car-card-footer">
+                            <span class="car-card-price">${car.price}</span>
+                            <button class="car-card-btn" onclick="event.stopPropagation();openCarModal(${car.id})">Подробнее</button>
+                        </div>
+                    </div>
+                `;
+                card.addEventListener('click', () => openCarModal(car.id));
+                catalogGrid.appendChild(card);
+            });
+            // Trigger reveal animation
+            setTimeout(() => {
+                document.querySelectorAll('.car-card.reveal').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight) el.classList.add('visible');
+                });
+            }, 100);
+        }
+        renderCatalog();
+
+        // ============ FILTERS ============
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.dataset.filter;
+                renderCatalog(filter);
+                // Scroll to catalog if needed
+                document.getElementById('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+
+        // ============ MODAL ============
+        function openCarModal(carId) {
+            const car = carsData.find(c => c.id === carId);
+            if (!car) return;
+            document.getElementById('modalImage').src = car.image;
+            document.getElementById('modalImage').onerror = function() { this.src = car.fallback; };
+            document.getElementById('modalBrand').textContent = car.brand;
+            document.getElementById('modalName').textContent = car.name;
+            document.getElementById('modalPrice').textContent = car.price;
+            document.getElementById('modalDesc').textContent = car.desc;
+            document.getElementById('modalSpecs').innerHTML = `
+                <div class="modal-spec"><div class="modal-spec-value">${car.year}</div><div class="modal-spec-label">Год</div></div>
+                <div class="modal-spec"><div class="modal-spec-value">${car.engine}</div><div class="modal-spec-label">Двигатель</div></div>
+                <div class="modal-spec"><div class="modal-spec-value">${car.power}</div><div class="modal-spec-label">Мощность</div></div>
+                <div class="modal-spec"><div class="modal-spec-value">${car.acceleration}</div><div class="modal-spec-label">0-100 км/ч</div></div>
+            `;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(e) {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        function closeModalDirect() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModalDirect();
+            }
+        });
+
+        // ============ FORM SUBMIT ============
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const form = e.target;
+            const name = form.querySelector('input[type="text"]').value.trim();
+            const phone = form.querySelector('input[type="tel"]').value.trim();
+            if (!name || !phone) {
+                showToast('Пожалуйста, заполните все обязательные поля');
+                return;
+            }
+            showToast('✅ Заявка успешно отправлена! Мы свяжемся с вами в течение 15 минут.');
+            form.reset();
+        }
+
+        // ============ TOAST ============
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // ============ NAVIGATION ============
+        function toggleNav() {
+            hamburger.classList.toggle('active');
+            nav.classList.toggle('active');
+        }
+
+        function closeNav() {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+        }
+
+        // Update active nav link on scroll
+        const sections = document.querySelectorAll('section[id]');
+        window.addEventListener('scroll', () => {
+            let scrollY = window.scrollY + 100;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                if (scrollY >= sectionTop && scrollY < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === '#' + sectionId) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+            // Header shadow
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+            // Back to top
+            if (window.scrollY > 600) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+            // Reveal elements
+            document.querySelectorAll('.reveal:not(.visible)').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 80) {
+                    el.classList.add('visible');
+                }
+            });
+        });
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ============ COUNTER ANIMATION ============
+        function animateCounters() {
+            document.querySelectorAll('.hero-stat-value[data-count]').forEach(el => {
+                const target = parseInt(el.dataset.count);
+                const duration = 2000;
+                const startTime = performance.now();
+
+                function update(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const current = Math.floor(eased * target);
+                    el.textContent = current.toLocaleString('ru-RU');
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        el.textContent = target.toLocaleString('ru-RU');
+                    }
+                }
+                requestAnimationFrame(update);
+            });
+        }
+
+        // ============ FILTER CATALOG FROM FOOTER ============
+        function filterCatalog(category) {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            const targetBtn = document.querySelector(`.filter-btn[data-filter="${category}"]`);
+            if (targetBtn) targetBtn.classList.add('active');
+            renderCatalog(category);
+            document.getElementById('catalog').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // ============ INIT ============
+        function init() {
+            // Trigger counter animation when hero is visible
+            const heroObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounters();
+                        heroObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+            const heroStats = document.querySelector('.hero-stats');
+            if (heroStats) heroObserver.observe(heroStats);
+
+            // Initial reveal check
+            setTimeout(() => {
+                document.querySelectorAll('.reveal').forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 80) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 300);
+
+            // Close nav on outside click
+            document.addEventListener('click', (e) => {
+                if (nav.classList.contains('active') && !nav.contains(e.target) && !hamburger.contains(e
+                        .target)) {
+                    closeNav();
+                }
+            });
+        }
+
+        init();
+
+        console.log('%c🚗 AURUM AUTO MOSCOW %c| %cСайт загружен успешно',
+            'color:#D4A017;font-size:1.2em;font-weight:bold;',
+            '',
+            'color:#999;');
+        console.log('%cПремиальный автосалон | Москва, Кутузовский пр-т, 48 | +7 (495) 777-88-99',
+        'color:#ccc;font-size:0.85em;');
+        console.log('%cВсе системы работают в штатном режиме ✅', 'color:#4CAF50;');
+    </script>
+</body>
+</html>
